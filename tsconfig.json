@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+        "paths": {
+            "@api/*": [
+                "api/*"
+            ], // Maps @api/ to the api/ folder
+            "@tests/*": [
+                "tests/*"
+            ] // Maps @tests/ to the tests/ folder
+        }
+    }
+}
