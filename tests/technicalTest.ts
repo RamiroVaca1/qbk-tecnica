@@ -1,33 +1,29 @@
 import { test, expect } from '@playwright/test';
 import registerUser from '../api/registerUser';
-import RandomDataGenerator from '../RandomDataGenerator';
+import RandomDataGenerator from '../utils/RandomDataGenerator';
 
 
 test.describe('QUBIKA TECNICA', () => {
-  let registeredUser: any; // Define the type based on your API response
+  let registeredUser: any;
   let randomEmail = RandomDataGenerator.generateRandomEmail();
   let randomCategory = RandomDataGenerator.generateRandomCategory();
   let randomSubcategory = RandomDataGenerator.generateRandomSubcategory();
 
   test.beforeAll(async () => {
-    // Register a new user before all tests
     registeredUser = await registerUser(randomEmail, 'password123', ['ROLE_ADMIN']);
   });
 
 
   test('should display login page correctly', async ({ page }) => {
-    // Navigate to the login page
 
     await page.goto('https://club-administration.qa.qubika.com/#/auth/login');
 
-    // Validate that the login page is displayed correctly
 
     await expect(page.locator('.custom-control-input')).toBeVisible();
     await expect(page.locator('button[type="submit"]')).toBeVisible();
   });
 
   test('test everything', async ({ page }) => {
-    // Navigate to the login page
 
     await page.goto('https://club-administration.qa.qubika.com/#/auth/login');
 
@@ -44,7 +40,7 @@ test.describe('QUBIKA TECNICA', () => {
     await expect(page.locator('.ni-button-power')).toBeVisible();
 
 
-    // CREATION OF CATEGORY
+    // Creation of Category
 
     await page.click('ul.navbar-nav > li:nth-child(3)');
     await page.click('button.btn-primary');
@@ -53,7 +49,7 @@ test.describe('QUBIKA TECNICA', () => {
     await expect(page.locator('[role="alertdialog"]')).toBeVisible();
 
 
-    // SUB CATEGORY
+    // Sub Category
 
     const subcategoryA = randomSubcategory;
 
@@ -64,7 +60,7 @@ test.describe('QUBIKA TECNICA', () => {
     await page.click('div[role="option"]:first-child')
     await page.click('button[type="submit"]');
 
-    // Click the last-1 LI from a UL TO VALIDATE SUB CATEGORY
+    // Click the last-1 LI from a UL To validate sub category
 
     await page.click('ul.pagination > li:nth-last-child(2)')
     console.log(subcategoryA)
